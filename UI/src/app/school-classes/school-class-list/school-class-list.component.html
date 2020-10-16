@@ -1,0 +1,27 @@
+<!-- Content Projection - Toolbar title-->
+<ng-template #gridToolBarTitle>
+  <h1>Classes</h1>
+</ng-template>
+
+<!-- Data table -->
+<mat-card>
+  <mat-card-content>
+    <app-data-table *ngIf="!loading" [displayedColumns]="columnsConfig"
+                    [dataSource]="dataSource"
+                    [toolbarTemplate]="gridToolBarTitle"
+                    (newRowAdded)="addNewRow()"
+                    (rowUpdated)="updateRow($event)"
+                    (rowDeleted)="deleteRow($event)"
+                    (rowSelected)="selectedRow($event)">
+    </app-data-table>
+  </mat-card-content>
+</mat-card>
+
+<!-- Delete Dialog -->
+<ng-template #confirmationDialog>
+  <h2 matDialogTitle>Are you sure you want to delete?</h2>
+  <mat-dialog-actions align="end">
+      <button mat-button matDialogClose="no">No</button>
+      <button mat-button matDialogClose="yes" color="warn">Yes</button>
+  </mat-dialog-actions>
+</ng-template>

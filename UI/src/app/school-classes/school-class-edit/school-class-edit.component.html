@@ -1,0 +1,28 @@
+<form [formGroup]="form">
+  <!-- Title -->
+  <h1 mat-dialog-title *ngIf="data.classId !== 0"> Update Class</h1>
+  <h1 mat-dialog-title *ngIf="data.classId === 0"> Add Class</h1>
+  <!-- Form -->
+  <div mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Class Name</mat-label>
+      <input matInput type="text" formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Location</mat-label>
+      <input matInput type="text" formControlName="classLocation">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Teacher Name</mat-label>
+      <input matInput type="text" formControlName="teacherName">
+    </mat-form-field>
+  </div>
+  <!-- Actions -->
+  <div mat-dialog-actions>
+    <button mat-button (click)="onClose()">Cancel</button>
+    <button mat-button *ngIf="data.classId !== 0" [disabled]="form.invalid" color="primary"
+      (click)="save()">Update</button>
+    <button mat-button *ngIf="data.classId === 0" [disabled]="form.invalid" color="primary"
+      (click)="save()">Save</button>
+  </div>
+</form>

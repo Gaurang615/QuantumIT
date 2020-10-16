@@ -1,0 +1,30 @@
+<!-- Toolbar Title -->
+<ng-template #gridToolBarTitle>
+  <h1>Students</h1>
+</ng-template>
+<!-- Data Table -->
+<mat-card>
+  <mat-card-content>
+    <app-data-table *ngIf="!loading; else loadingSpinner" [displayedColumns]="columnsConfig"
+                    [dataSource]="dataSource"
+                    [toolbarTemplate]="gridToolBarTitle"
+                    (newRowAdded)="addNewRow()"
+                    (rowUpdated)="updateRow($event)"
+                    (rowDeleted)="deleteRow($event)">
+    </app-data-table>
+  </mat-card-content>
+</mat-card>
+
+<!-- Confirmation Dialog -->
+<ng-template #confirmationDialog>
+  <h2 matDialogTitle>Are you sure you want to delete?</h2>
+  <mat-dialog-actions align="end">
+      <button mat-button matDialogClose="no">No</button>
+      <button mat-button matDialogClose="yes" color="warn">Yes</button>
+  </mat-dialog-actions>
+</ng-template>
+
+<!-- Spinner -->
+<ng-template #loadingSpinner>
+  <mat-spinner></mat-spinner>
+</ng-template>

@@ -1,0 +1,11 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Quantum IT</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+<!-- Classes -->
+<app-school-classes-list (selectedStudentClass)="selectedStudentClass($event)"></app-school-classes-list>
+<!-- Student -->
+<app-student-list *ngIf="selectedClassId" [selectedClassId] = "selectedClassId"></app-student-list>
+
+

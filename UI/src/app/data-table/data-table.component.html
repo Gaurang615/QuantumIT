@@ -1,0 +1,36 @@
+<mat-toolbar>
+  <!-- Toolbar title -->
+  <ng-content *ngIf="!toolbarTemplate"></ng-content>
+  <ng-container *ngIf="toolbarTemplate" [ngTemplateOutlet]="toolbarTemplate"></ng-container>
+  <span class="toolbar-action-spacer"></span>
+
+  <!-- Add new row button -->
+  <button name="rlb-grid-toolbar-add-button" color="primary" #addButton [tabIndex]="1" type="button" mat-button
+    (click)="addNew($event)">
+    <mat-icon>add</mat-icon>Add
+  </button>
+</mat-toolbar>
+<mat-card>
+  <mat-card-content>
+    <mat-table #table [dataSource]="dataSource">
+      <!-- Dynamic columns -->
+      <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column.header">
+        <th mat-header-cell *matHeaderCellDef> {{ column.header }} </th>
+        <td mat-cell *matCellDef="let row" [style.color]="getCellColor(column, row)"> {{ column.cell(row) }}</td>
+      </ng-container>
+      <!-- Action Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+          <button mat-button color="primary" (click)="editRow(element)"><mat-icon>edit</mat-icon> Edit</button>
+          <button mat-button color="warn" (click)="deleteRow(element)"><mat-icon>delete</mat-icon>  Delete</button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="columnHeaders"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnHeaders;"  (click)="selectRow(row)"
+      [style.background]="selectedRows.indexOf(row) != -1 ? '#dfedf2' : ''"></tr>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
+  </mat-card-content>
+</mat-card>
+
